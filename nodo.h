@@ -1,9 +1,10 @@
-#ifndef NODO_H_
-#define NODO_H_
-
 #ifndef NULL
 #define NULL 0
 #endif
+
+#ifndef NODO_H_
+#define NODO_H_
+
 
 template<class T> class Nodo {
 

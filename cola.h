@@ -105,3 +105,5 @@ Cola<T>::~Cola(){
         this->desacolar();
     }
 }
+
+#endif //COLA_H_
