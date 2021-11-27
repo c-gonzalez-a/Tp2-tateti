@@ -24,7 +24,7 @@ class Casillero {
         Casillero();
     
         /**
-         * Pre: El casillero debe estar creado
+         * Pre: El casillero debe estar creado\n
          * Post: Devuelve la ficha que contiene el casillero
          */ 
         char getFicha();
