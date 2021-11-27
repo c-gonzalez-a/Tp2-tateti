@@ -50,6 +50,18 @@ void jugarTurno(this->turno);
  */
 void actualizarEstadoDelJuego();
 
+/**
+ * Pre: -
+ * Post: Si es el final de la ronda devuelve true, de lo contrario false
+ */
+bool esFinDeRonda();
+
+/**
+ * Pre: -
+ * Post: Reparte una carta del mazo a cada jugador
+ */
+void repartirCartas();
+
 TaTeTi::TaTeTi(){
     
     darBienvenida(); 
@@ -83,6 +95,10 @@ void TaTeTi::jugar(){
         jugarTurno(this->turno);
         
         actualizarEstadoDelJuego();
+        
+        if (esFinDeRonda() ){
+            repartirCartas();
+        }
     }
 }
 
