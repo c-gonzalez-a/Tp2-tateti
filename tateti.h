@@ -5,30 +5,24 @@
 #include "mazo.h"
 #include "jugador.h"
 
-enum Estado {
-    POSICIONANDO,
-    MOVIENDO,
-    FINALIZADO,
-};
-
 class TaTeTi {
 
     private:
 
         int turno;
-        int ganador;
-        Tablero tablero;
-        Mazo mazo;
+        int ganador;    //Se define el numero del jugador que gano o -1 si aun no gano nadie
+        Tablero * tablero;
+        Mazo * mazo;
         int cantJugadores;
-        Jugador[] jugadores;
+        Lista<Jugador*> * jugadores;
 
     public:
 
         /**
-         * Post: Construye un juego de tateti con la cantidad de jugadores y dimensiones dadas por el usuario,
-         *  con una cantidad de fichas y cartas acorde.
+         * Post: Construye un juego de tateti, con la cantidad de jugadores y dimensiones
+         *  deseadas, con una cantidad de fichas y cartas acorde.
          */
-        TaTeTi(int cantJugadores, int ancho, int alto, int profundidad, int cantFichas);
+        TaTeTi();
 
         /**
          * Post: Destruye el juego

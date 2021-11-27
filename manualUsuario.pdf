@@ -1,0 +1,19 @@
+* Solo se puede usar las cartas en la etapa de movimientos
+(Pero entonces la carta de bloquear casilllero piede un poco de sentido)
+
+* Hay un maximo de cartas que puede acumular un jugador en su baraja 
+(5? depende de la cantidad de jugadores? o de fichas? )
+
+* Hay un maximo de dimesion 10 y minimo de 3
+* 
+
+
+
+Puse el estado de POSICIONANDO, MOVIENDO como atributo de cada jugador ya que de haber algun cambio en sus fichas o lo que sea se modifica y en la siguiente partida hace lo que corresponde a su estado
+
+
+Hay que responder el cuestionario
+
+1. Que es un svn?
+
+2. Que es una ruta absoluta o una ruta relativa?

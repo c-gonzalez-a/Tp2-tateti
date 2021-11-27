@@ -1,12 +1,13 @@
 #include "tateti.h"
+#include <iostream>
 
 int main (){
 
-    // contruir juego();
+    TaTeTi * juego = new TaTeTi();
 
-    // jugar();
+    juego->jugar();
 
-    // destruir();
+    juego->~TaTeTi();
 
     return 0;
 }

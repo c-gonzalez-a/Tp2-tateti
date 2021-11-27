@@ -1,14 +1,20 @@
-#ifndef JUGADOR_H_
+#ifndef JUGADOR_H
 #define JUGADOR_H_
 
 #include "baraja.h"
+
+enum Estado {
+    POSICIONANDO,
+    MOVIENDO,
+};
 
 class Jugador {
     
     private: 
         char ficha;
         int numero;
-        Baraja mazo;
+        Baraja * baraja;
+        Estado estado;
 
     public:           
 
@@ -16,7 +22,7 @@ class Jugador {
          * Pre: -
          * Post: Contruye un jugador con una baraja vacia
          */
-        Jugador(char ficha, int numero);
+        Jugador(char ficha, int numeroDelJugador);
 
         /**
          * Pre: El jugador debe estar creado

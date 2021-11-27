@@ -1,10 +1,14 @@
 //lista dinamica de cartas del usuario con un maximo
 
+#ifndef BARAJA_H_
+#define BARAJA_H_
+
 #include "carta.h"
+#include "lista.h"
 
 class Baraja {
     private: 
-        Carta cartas; //lista dinamica 
+        Lista<Carta*> * baraja; //lista dinamica 
   
     public:
 
@@ -21,3 +25,5 @@ class Baraja {
         ~Baraja();
 
 };
+
+#endif //BARAJA_H_

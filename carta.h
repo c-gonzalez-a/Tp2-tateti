@@ -30,4 +30,4 @@ class Carta {
         TipoCarta getNombre();
 };
 
-#endif
+#endif //CARTA_H_
