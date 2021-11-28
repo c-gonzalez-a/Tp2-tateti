@@ -8,7 +8,6 @@ enum TipoCarta {
     anularCasillero,
     intercambiarFicha,
     repetirTurno,
-    moverFicha,
 };
 
 class Carta {
