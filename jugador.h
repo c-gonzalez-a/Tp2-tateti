@@ -45,6 +45,18 @@ class Jugador {
          */
         char obtenerFicha();
 
+        /**
+         * Post: Establece el estado deseado en el jugador
+         * @param estado = Estado a setear
+         */
+        void establecerEstado(Estado estado);
+
+        /**
+         * Post: Devuelve el estado actual del jugador
+         * @return El estado actual del jugador
+         */
+        Estado obtenerEstado();
+
 };
 
 #endif /* JUGADOR_H_ */

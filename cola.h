@@ -43,12 +43,13 @@ public:
      */
     void acolarTodos (const Cola<T> * otraCola);
 
+
     /*
-	* post: devuelve la cantidad de elementos que tiene la cola.
-	*/
+	  * post: devuelve la cantidad de elementos que tiene la cola.
+	  */
     unsigned int contarElementos();
 
-    /**
+    /*
      * pre:
      * post: elimina la cola
      */
