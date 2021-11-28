@@ -29,11 +29,10 @@ class Jugador {
          */
         void listarCartas();
 
-        /** 
-         * Pre: Debe haber listado las cartas para saber la posicion de la que desea utilizar\n
-         * Post: Se juega el tipo de carta si devuelve true, false si no se puede jugar porque no existe
+        /**
+         * Post: Se juega el tipo de carta si devuelve true, false si no se puede jugar porque no existe en la baraja
          */
-        bool jugarCarta(int posicionCarta);
+        bool jugarCarta(TipoCarta carta);
 
         /**
          * Post: obtiene el numero del jugador
@@ -58,7 +57,7 @@ class Jugador {
          */
         EstadoJugador obtenerEstado();
 
-        void agregarCartaABaraja(Carta * nuevaCarta);
+        void agregarCartaABaraja(Carta &nuevaCarta);
 
 };
 
