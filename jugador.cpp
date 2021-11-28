@@ -1,10 +1,11 @@
 #include "jugador.h"
 
-Jugador::Jugador(char _ficha, int _numeroDelJugador){
+Jugador::Jugador(char _ficha, int _numeroDelJugador, int cantFichas){
     this->ficha = _ficha;
     this->numero = _numeroDelJugador;
     this->estado = POSICIONANDO;
     this->baraja = new Baraja();
+    this->cantFichaPorPoner = cantFichas;
 }
 
 void Jugador::listarCartas(){
