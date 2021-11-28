@@ -1,109 +1,110 @@
 #ifndef COLA_H_
 #define COLA_H_
 
-#include "nodo.h"
+#include "Nodo.h"
 
 template<class T> class Cola {
 
-    private:
+private:
 
-        Nodo<T> * front;
-        Nodo<T> * end;
+    Nodo<T>* frente;
 
+    Nodo<T>* ultimo;
 
-    public:
+    unsigned int tamanio;
 
-        /**
-         * Pre: -
-         * Post: Devuelve una cola vacia preparada para ser usada
-         */
-        Cola();
+public:
+    /**
+     * pre:
+     * post: inicializa la cola vacia para su uso
+     */
+    Cola();
 
-        /** 
-         * Pre: La cola debe haber sido creada
-         * Post: Destruye la cola
-         */
-        ~Cola();
+    /**
+     * post: indica si la cola tiene algun elemento.
+     */
+    bool estaVacia();
 
-        /** 
-         * Pre: La cola debe estar creada, no debe estar vacia
-         * Post: Devuelve el valor del primer elemento de la cola
-         */
-        T getFront();
+    /**
+     * pre :
+     * post: devuelve el elemento en el frente de la cola.
+     */
+    T& desacolar();
 
-        /**
-         * Pre: La cola debe haber sido creada
-         * Post: Da de alta en la cola un elemento que se ubicará al final
-         */
-        void acolar(T elemento);
+    /**
+     * pre: el elemento no es vacio
+     * post: agrega el elemento a la cola
+     */
+    void acolar (const T& elemento);
 
-        /**
-         * Pre: La cola debe estar creada y no vacía
-         * Post: Cola modificada por la eliminación del elemento del frente
-         */
-        void desacolar();
+    /**
+     * pre: el elemento no es vacio
+     * post: agrega todos los elementos a la cola
+     */
+    void acolarTodos (const Cola<T> * otraCola);
 
-        /**
-         * Pre: La cola debe estar creada
-         * Post: Devuelve un valor logico indicando si la cola esta vacia
-         */
-        bool vacia();
+    /**
+	* post: devuelve la cantidad de elementos que tiene la cola.
+	*/
+    unsigned int contarElementos();
 
+    /**
+     * post: elimina la cola
+     */
+    virtual ~Cola();
 };
 
-template<class T>
-Cola<T>::Cola(){
-    this->front = NULL;
-    this->end = NULL;
+template<class T> Cola<T>::Cola() {
+    this->frente = NULL;
+    this->ultimo = NULL;
     this->tamanio = 0;
 }
 
-template<class T>
-T Cola<T>::getFront(){
-
-    if (this->front != NULL){
-        return this->front;
-    }
-
-}
-
-template<class T>
-void Cola<T>::acolar(T elemento){
-
-    Nodo<T> *nuevo = new Nodo<T>(elemento);
-
-    if (this->front == NULL){
-        this->front = nuevo;
-        this->end = nuevo;
-    }  
-
-    else {
-        this->end->cambiarSiguiente(nuevo);
+template<class T> Cola<T>::~Cola() {
+    while (!this->estaVacia()) {
+        Nodo<T>* aBorrar = this->desacolar();
+        delete aBorrar;
     }
 }
 
-template<class T>
-void Cola<T>::desacolar(){
-
-    Nodo<T> *removido;
-    removido = this->front;
-
-    this->front = this->front->obtenerSiguiente();
-
-    delete removido;
-    
-}
-
-template<class T>
-bool Cola<T>::vacia(){
+template<class T> bool Cola<T>::estaVacia() {
     return (this->tamanio == 0);
 }
 
-template<class T>
-Cola<T>::~Cola(){
-    while (this->primero != NULL){
-        this->desacolar();
+template<class T> T& Cola<T>::desacolar() {
+
+    T elemento; //int elemento
+
+    if (this->frente != NULL) {
+
+        elemento = this->frente->obtenerDato();
+    }
+
+    return elemento;
+}
+
+template<class T> void Cola<T>::acolar(const T& elemento) {
+
+    Nodo<T>* nuevo = new Nodo<T>(elemento);
+    if (this->estaVacia()) {
+        nuevo->cambiarSiguiente(this->frente);
+        this->frente = nuevo;
+    } else {
+        this->frente = nuevo;
+        this->ultimo = nuevo;
     }
 }
 
-#endif //COLA_H_
+template<class T> unsigned int Cola<T>::contarElementos() {
+
+    return this->tamanio;
+}
+
+template<class T> void Cola<T>::acolarTodos (const Cola<T> * otraCola) {
+    while (!otraCola->estaVacia()) {
+        T elemento = otraCola->desacolar();
+        this->acolar( elemento );
+    }
+}
+
+#endif /* COLA_H_ */

@@ -8,9 +8,25 @@ Jugador::Jugador(char _ficha, int _numeroDelJugador){
 }
 
 void Jugador::listarCartas(){
-    //muestra las cartas que tiene el jugador y las enumera asi puede elegir cual jugar con la funcion jugarCarta
+    this->baraja->imprimirBaraja();
 }
 
-void Jugador::jugarCarta(int carta){
-    //seleccionar una carta de la baraja, lista dinamica, borrarla y reordenar la baraja
+bool Jugador::jugarCarta(TipoCarta carta){
+    this->baraja->seleccionarCartaPorTipo(carta);
+}
+
+int Jugador::obtenerNumero() {
+    return this->numero;
+}
+
+char Jugador::obtenerFicha() {
+    return this->ficha;
+}
+
+void Jugador::establecerEstado(Estado estado) {
+    this->estado = estado;
+}
+
+Estado Jugador::obtenerEstado() {
+    return this->estado;
 }
