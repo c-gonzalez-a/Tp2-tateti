@@ -22,3 +22,11 @@ int Jugador::obtenerNumero() {
 char Jugador::obtenerFicha() {
     return this->ficha;
 }
+
+void Jugador::establecerEstado(Estado estado) {
+    this->estado = estado;
+}
+
+Estado Jugador::obtenerEstado() {
+    return this->estado;
+}
