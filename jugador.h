@@ -3,7 +3,7 @@
 
 #include "baraja.h"
 
-enum Estado {
+enum EstadoJugador {
     POSICIONANDO,
     MOVIENDO,
 };
@@ -14,7 +14,7 @@ class Jugador {
         char ficha;
         int numero;
         Baraja * baraja;
-        Estado estado;
+        EstadoJugador estado;
 
     public:           
 
@@ -49,13 +49,13 @@ class Jugador {
          * Post: Establece el estado deseado en el jugador
          * @param estado = Estado a setear
          */
-        void establecerEstado(Estado estado);
+        void establecerEstado(EstadoJugador estado);
 
         /**
          * Post: Devuelve el estado actual del jugador
          * @return El estado actual del jugador
          */
-        Estado obtenerEstado();
+        EstadoJugador obtenerEstado();
 
         void agregarCartaABaraja(Carta * nuevaCarta);
 
