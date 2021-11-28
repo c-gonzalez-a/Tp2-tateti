@@ -19,19 +19,19 @@ class Jugador {
     public:           
 
         /**
-         * Pre: -
-         * Post: Contruye un jugador con una baraja vacia
+         * Pre: -\n
+         * Post: Construye un jugador con una baraja vacia
          */
         Jugador(char ficha, int numeroDelJugador);
 
         /**
-         * Pre: El jugador debe estar creado
+         * Pre: El jugador debe estar creado\n
          * Post: Imprime por pantalla la baraja del jugador, enumerando las cartas
          */
         void listarCartas();
 
         /** 
-         * Pre: El jugador debe estar creado, y debe haber listado las cartas para saber la posicion de la que desea utilizar
+         * Pre: El jugador debe estar creado, y debe haber listado las cartas para saber la posicion de la que desea utilizar\n
          * Post: Se juega la carta seleccionada
          */
         void jugarCarta(int carta);
