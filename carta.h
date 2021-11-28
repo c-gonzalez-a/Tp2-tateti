@@ -19,13 +19,17 @@ class Carta {
     public:
 
         /**
-         * Pre: -
          * Post: Construye una carta del tipo indicado
          */
         Carta(TipoCarta tipo);
 
+        /**
+         * Post: Imprime la carta en pantalla
+         */
+        void imprimirCarta();
+
         /*
-         * Devuelve el tipo 
+         * Post: Devuelve el tipo
          */
         TipoCarta getNombre();
 };

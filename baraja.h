@@ -13,14 +13,32 @@ class Baraja {
     public:
 
         /**
-         * Pre: -
-         * Post: Crea una baraja sin cartas
+         * Post: Crea una baraja sin cartas\n
          */
         Baraja();
 
         /**
-         * Pre: La baraja debe estar creada
-         * Post: La destruye 
+         * Post: Agrega Cartas a la baraja
+         */
+        void agregarCartas(Lista<Carta*> &cartas);
+
+        /**
+         * Post: Agrega una carta a la baraja
+         */
+        void agregarCarta(Carta &carta);
+
+        /**
+         * Post: Selecciona una carta de la baraja por el tipo, luego elimina la carta de la baraja, si el tipo de carta existe en la baraja devuelve true, sino false
+         */
+        bool seleccionarCartaPorTipo(TipoCarta tipo);
+
+         /**
+          * Post: Imprime la baraja en pantalla
+          */
+         void imprimirBaraja();
+
+        /**
+         * Post: Destruye la baraja
          */
         ~Baraja();
 
