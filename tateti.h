@@ -5,16 +5,20 @@
 #include "mazo.h"
 #include "jugador.h"
 
+enum EstadoJuego {
+    JUGANDO,
+    FINALIZADO,
+}
+
 class TaTeTi {
 
     private:
 
-        int turno;
-        int ganador;    //Se define el numero del jugador que gano o -1 si aun no gano nadie
         Tablero * tablero;
         Mazo * mazo;
-        int cantJugadores;
         Lista<Jugador*> * jugadores;
+        Jugador * turnoActual;
+        EstadoJuego estado;
 
     public:
 
@@ -34,6 +38,39 @@ class TaTeTi {
          * Post: Se lleva a cabo el procedimiento del juego hasta que haya un ganador o se rindan
          */
         void jugar();
+
+    private:
+
+        /**
+         * Pre: El juego debe estar correctamente inicializado
+         * Post: Reparte una carta a cada jugador de forma aleatoria del mazo
+         */
+        void repartirCartas();
+
+        /**
+         * Pre: El juego tateti debe estar creado correctamente
+         * Post: Juega el turno del jugador que le corresponde
+         */
+        void jugarTurno(Jugador * jugador);
+
+        /**
+         * Pre: -
+         * Post: Si hay algun ganador se cambia el estado del juego, sino se pasa al siguiente turno
+         * 
+         */
+        void actualizarEstadoDelJuego();
+
+        /**
+         * Pre: El juego debe estar correctamente definido
+         * Post: Posiciona una ficha en el tablero
+         */
+        void posicionarFicha();
+
+        /**
+         * Pre: El jugador debe haber ya posicionado todas sus fichas
+         * Post: Mueve una de sus fichas a un casillero vacio
+         */
+        void moverFicha();
 
 };
 
