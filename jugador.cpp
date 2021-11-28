@@ -31,3 +31,7 @@ void Jugador::establecerEstado(EstadoJugador estado) {
 EstadoJugador Jugador::obtenerEstado() {
     return this->estado;
 }
+
+void Jugador::agregarCartaABaraja(Carta &nuevaCarta) {
+    this->baraja->agregarCarta(nuevaCarta);
+}
