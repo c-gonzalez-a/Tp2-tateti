@@ -21,6 +21,7 @@ void Casillero::liberarCasillero(){
     this->estado = LIBRE;
 }
 
-void Casillero::ocuparCasillero(){
+void Casillero::ocuparCasillero(char ficha){
     this->estado = OCUPADO;
+    this->ficha = ficha
 }
