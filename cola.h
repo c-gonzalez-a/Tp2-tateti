@@ -20,35 +20,37 @@ public:
      */
     Cola();
 
-    /**
-     * post: indica si la cola tiene algun elemento.
+    /*
+     * post: indica si la cola tiene algún elemento.
      */
     bool estaVacia();
 
-    /**
+    /*
      * pre :
      * post: devuelve el elemento en el frente de la cola.
      */
     T& desacolar();
 
-    /**
+    /*
      * pre: el elemento no es vacio
      * post: agrega el elemento a la cola
      */
     void acolar (const T& elemento);
 
-    /**
+    /*
      * pre: el elemento no es vacio
      * post: agrega todos los elementos a la cola
      */
     void acolarTodos (const Cola<T> * otraCola);
 
-    /**
-	* post: devuelve la cantidad de elementos que tiene la cola.
-	*/
+
+    /*
+	  * post: devuelve la cantidad de elementos que tiene la cola.
+	  */
     unsigned int contarElementos();
 
-    /**
+    /*
+     * pre:
      * post: elimina la cola
      */
     virtual ~Cola();
