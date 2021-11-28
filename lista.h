@@ -109,6 +109,11 @@ template<class T> class Lista {
          */
         T obtenerCursor();
 
+        /* pre: -
+         * post: liga el ultimo elemento de la lista con el primero para crear una lista ligada circular simple
+         */
+        void ligarUltimoConPrimero();
+
         /*
          * post: libera los recursos asociados a la Lista.
          */
@@ -287,6 +292,13 @@ template<class T> Nodo<T>* Lista<T>::obtenerNodo(unsigned int posicion) {
     }
 
     return actual;
+}
+
+template<class T> void Lista<T>::ligarUltimoConPrimero(){
+
+    this->obtenerNodo(this->tamanio)->cambiarSiguiente(this->primero);
+    
+
 }
 
 #endif /* LISTA_H_ */
