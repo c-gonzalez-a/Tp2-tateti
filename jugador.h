@@ -30,9 +30,20 @@ class Jugador {
 
         /** 
          * Pre: Debe haber listado las cartas para saber la posicion de la que desea utilizar\n
-         * Post: Se juega la carta seleccionada
+         * Post: Se juega el tipo de carta si devuelve true, false si no se puede jugar porque no existe
          */
-        void jugarCarta(int carta);
+        bool jugarCarta(TipoCarta carta);
+
+        /**
+         * Post: obtiene el numero del jugador
+         */
+        int obtenerNumero();
+
+
+        /**
+         * Post: obtiene la ficha del jugador
+         */
+        char obtenerFicha();
 
 };
 
