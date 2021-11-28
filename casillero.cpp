@@ -9,7 +9,7 @@ char Casillero::getFicha(){
     return this->ficha;
 }
 
-Estado Casillero::getEstado(){
+EstadoCasillero Casillero::getEstado(){
     return this->estado;
 }
 

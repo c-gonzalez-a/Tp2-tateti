@@ -23,10 +23,10 @@ char Jugador::obtenerFicha() {
     return this->ficha;
 }
 
-void Jugador::establecerEstado(Estado estado) {
+void Jugador::establecerEstado(EstadoJugador estado) {
     this->estado = estado;
 }
 
-Estado Jugador::obtenerEstado() {
+EstadoJugador Jugador::obtenerEstado() {
     return this->estado;
 }

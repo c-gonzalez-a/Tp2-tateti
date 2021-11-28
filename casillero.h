@@ -3,7 +3,7 @@
 
 const char VACIO = ' ';
 
-enum Estado {
+enum EstadoCasillero {
     BLOQUEADO,
     LIBRE,
     OCUPADO,
@@ -13,7 +13,7 @@ class Casillero {
 
     private:
         char ficha;
-        Estado estado;
+        EstadoCasillero estado;
 
     public:
 
@@ -33,7 +33,7 @@ class Casillero {
          * Pre: El casillero debe estar creado
          * Post: Devuelve el estado en el que se encuentra el casillero
          */
-        Estado getEstado();
+        EstadoCasillero getEstado();
         
         /**
          * Pre: El casillero debe estar creado
