@@ -39,7 +39,7 @@ class Casillero {
          * Pre: El casillero debe estar creado
          * Post: Cambia el estado del casillero a OCUPADO
          */
-        void ocuparCasillero();
+        void ocuparCasillero(char ficha);
 
         /** Pre: El casillero debe estar creado
          * Post: Pone el estado del casillero en LIBRE
