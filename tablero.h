@@ -1,6 +1,7 @@
 #ifndef TABLERO_H_
 #define TABLERO_H_
 
+#include "coordenada.h"
 #include "casillero.h"
 #include "lista.h"
 
@@ -29,7 +30,7 @@ class Tablero {
          * Pre: Recibe una posicion en la que se desea ubicar una ficha y el jugador que la colacaria
          * Post: Si la posicion es valida para las dimensiones del tablero y el casillero esta vacio la ubica y devuelve true
          */
-        bool agregarFicha(Coordenada _coordenada);
+        bool agregarFicha(Coordenada  &_coordenada);
 
         /**
          * Pre: Recibe la posicion de la ficha que desea mover, luego a donde desea moverla, y el jugador que lo pide
