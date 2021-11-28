@@ -1,109 +1,214 @@
 #include "tateti.h"
 
+#include <ctime>
 #include <string>
 #include <iostream>
 
-/* void jugar(...){
-    mostrarMazoJugador();
-    si estado = moviendo
-        pedirUbicacionDeFicha();
+const char SI = 'S';
+
+void darBienvenida(){
+
+    std::cout << " \
+     ########    ###             ######## ########          ######## #### \n \
+        ##      ## ##               ##    ##                   ##     ##  \n \
+        ##     ##   ##              ##    ##                   ##     ##  \n \
+        ##    ##     ##  #######    ##    ######    #######    ##     ##  \n \
+        ##    #########             ##    ##                   ##     ##  \n \
+        ##    ##     ##             ##    ##                   ##     ##  \n \
+        ##    ##     ##             ##    ########             ##    #### \n " 
+    <<std::endl;
+
+} 
+
+int pedirAlUsuarioUnDato(std::string dato){
+
+    int datoObtenido;
+
+    std::cout << "Ingrese el valor de la " << dato << "que desea" << std::endl;
+    std::cin >> datoObtenido;
     
-    ubicarFichaEnLugarVacio();
-    opcionDeJugarCarta();
+    return datoObtenido;
 }
-*/
 
-/**
- * Pre: -
- * Post: Imprime por pantalla una bienvenida al usuario al juego 
- */
-void darBienvenida();
+char pedirFicha(int numeroJugador){
 
-/**
- * Pre: -
- * Post: Pide datos al usuario
- */
-int pedirAlUsuario(std::string dato);
+    char fichaObtenida;
 
-/**
- * Pre: -
- * Post: Pide al usuario que ingrese la ficha que usuara durante la partida
- */
-char pedirFicha(int numeroJugador);
+    std::cout << "Jugador " << numeroJugador << " ingrese la ficha que usara durante el juego" << std::endl;
+    std::cin >> fichaObtenida;
 
-/**
- * Pre: -
- * Post: Pregunta si el jugador desea jugar alguna carta de su baraja, si no tiene ninguna no hace nada
- */
-void preguntarSiDeseaJugarUnaCarta();
-        
-/**
- * Pre: El juego tateti debe estar creado correctamente
- * Post: Juega el turno del jugador que le corresponde
- */
-void jugarTurno(this->turno);
-        
-/**
- * Pre: -
- * Post: Si hay algun ganador se cambia el estado del juego, sino se pasa al siguiente turno
- * 
- */
-void actualizarEstadoDelJuego();
+    return fichaObtenida;
 
-/**
- * Pre: -
- * Post: Si es el final de la ronda devuelve true, de lo contrario false
- */
-bool esFinDeRonda();
+}
 
-/**
- * Pre: -
- * Post: Reparte una carta del mazo a cada jugador
- */
-void repartirCartas();
+int dimensionMasGrande(int dim1, int dim2,int dim3){
+    
+    int respuesta;
+
+    if ( (dim1 >= dim2) && (dim1 >= dim3) ){
+        respuesta = dim1;
+    }
+    else if ( (dim2 >= dim1) && (dim2 >= dim3) ){
+        respuesta = dim2;
+    }
+    else if ( (dim3 >= dim1) && (dim3 >= dim2) ){
+        respuesta = dim3;
+    }
+
+    return respuesta;
+
+}
 
 TaTeTi::TaTeTi(){
     
     darBienvenida(); 
 
-    this->cantJugadores = pedirAlUsuario(string cantJugadores);
+    int dim1 = pedirAlUsuarioUnDato("primera dimension");
+    int dim2 = pedirAlUsuarioUnDato("segunda dimension");
+    int dim3 = pedirAlUsuarioUnDato("tercera dimension");
+    this->tablero = new Tablero( dim1, dim2, dim3);
     
-    this->tablero = new Tablero( pedirAlUsuario("primera dimension"), pedirAlUsuario("segunda dimension"), pedirAlUsuario("tercera dimension") );
-
-    this->ganador = -1;
-
-    this->turno = 1;
-
     this->mazo = new Mazo();
-
+    
     this->jugadores = new Lista<Jugador*>();
     
-    for (int i = 1; i <= (this->cantJugadores=); i++){
+    int cantJugadores = pedirAlUsuarioUnDato("cantidad de jugadores");
+    for (int i = 1; i <= cantJugadores; i++){
 
-        Jugador * jugadorActual = new Jugador(pedirFicha(i) , i);
-        this->jugadores->agregar(jugadorActual);
+        Jugador * nuevoJugador = new Jugador(pedirFicha(i) , i, dimensionMasGrande(dim1,dim2,dim3) );
+        this->jugadores->agregar(nuevoJugador);
+
+        if (i == cantJugadores){
+            jugadores->ligarUltimoConPrimero();
+        }
     }
-   
+    
+    jugadores->iniciarCursor();
+    this->turnoActual = turnos->obtenerCursor();
+
+    this->estado = JUGANDO;
 };
+
+TipoCarta generarCartaAleatoria(){
+
+    TipoCarta resultado;
+    srand(time(NULL));
+
+    int numeroAleatorio = ran()%6;
+
+    if (numeroAleatorio == 0){
+        resultado = perderTurno;
+    }
+    else if(numeroAleatorio == 1){
+        resultado = volverAtras;
+    }
+    else if(numeroAleatorio == 2){
+        resultado = bloquearCasillero;
+    }
+    else if(numeroAleatorio == 3){
+        resultado = anularCasillero;
+    }
+    else if(numeroAleatorio == 4){
+        resultado = intercambiarFicha;
+    }
+    else if(numeroAleatorio == 5){
+        resultado = repetirTurno;
+    }
+
+    return resultado;
+
+}
+
+void TaTeTi::repartirCartas(){
+
+    for(int i = 0; i < (this->jugadores->contarElementos); i++){
+
+        Carta * cartaAleatoria = new Carta( generarCartaAleatoria() );
+
+        this->jugadores->obtenerCursor()->agregarCartaABaraja(cartaAleatoria);
+
+        this->jugadores->avanzarCursor();
+    }
+    
+}
+
+bool deseaJugarCarta(){
+    
+    bool deseaJugar = true;
+    char respuestaJugador;
+
+    std::cout << "Desea jugar alguna carta? (S para si, cualquier letra para no" << std::endl;
+    std::cin >> respuestaJugador;
+
+    if ( respuesta != SI ){
+        deseaJugar = false;
+    }
+
+    return deseaJugar;
+}
+
+int pedirCarta(){
+
+    int respuesta;
+
+    std::cout << "Ingrese el numero de la carta que desea jugar" << std::endl;
+    std::cin >> respuesta;
+
+    return respuesta;
+
+}
+
+void posicionarFicha(){
+
+}
+
+void moverFicha(){
+
+}
+
+void TaTeTi::jugarTurno(Jugador * jugador){
+
+    do {
+        
+        jugador->listarCartas();
+        bool respuesta = deseaJugarCarta();
+            
+            if ( respuesta ){
+                int posicionCartaAJugar = pedirCarta();
+             }
+
+    } while ( !(jugador->jugarCarta(posicionCartaAJugar)) && (respuesta) );
+
+    if ( jugador->obtenerEstado() == POSICIONANDO){
+        this->posicionarFicha();
+    }
+    else if ( jugador->obtenerEstado() == MOVIENDO){
+        moverFicha();
+    }
+
+}
+
+void TaTeTi::actualizarEstadoDelJuego(){
+
+}
 
 void TaTeTi::jugar(){
 
-    while (this->ganador == -1){
+    while (this->estado == JUGANDO){
 
-        preguntarSiDeseaJugarUnaCarta();
+        repartirCartas();
         
         jugarTurno(this->turno);
         
         actualizarEstadoDelJuego();
-        
-        if (esFinDeRonda() ){
-            repartirCartas();
-        }
+
     }
 }
 
 TaTeTi::~TaTeTi(){
-    //hay que hacer
+    tablero->~Tablero();
+    mazo->~Mazo();
 }
+
 
 #endif //string
