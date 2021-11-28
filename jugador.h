@@ -15,13 +15,14 @@ class Jugador {
         int numero;
         Baraja * baraja;
         EstadoJugador estado;
+        int cantFichaPorPoner; //Igual al numero de la mayor dimension del tablero
 
     public:           
 
         /**
          * Post: Construye un jugador con una baraja vacia
          */
-        Jugador(char ficha, int numeroDelJugador);
+        Jugador(char ficha, int numeroDelJugador, int cantFichas);
 
         /**
          * Post: Imprime por pantalla la baraja del jugador, enumerando las cartas
