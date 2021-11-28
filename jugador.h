@@ -57,6 +57,8 @@ class Jugador {
          */
         Estado obtenerEstado();
 
+        void agregarCartaABaraja(Carta * nuevaCarta);
+
 };
 
 #endif /* JUGADOR_H_ */
