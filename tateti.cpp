@@ -196,8 +196,18 @@ void TaTeTi::posicionarFicha(){
 
 void TaTeTi::moverFicha(){
 
+    bool cambioValido = false;
+    while(!cambioValido){
+        
+        Coordenada posicionActual;
+        posicionActual = pedirPosicionFicha();
+        Coordenada posicionNueva;
+        posicionNueva = pedirPosicionFicha();
 
-
+        if (this->tablero->moverFicha(posicionActual, posicionNueva, this->turnoActual)){
+            cambioValido = true;
+        }
+    }
 }
 
 void TaTeTi::jugarTurno(Jugador * jugador){
