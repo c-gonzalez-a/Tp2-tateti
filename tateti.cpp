@@ -97,44 +97,11 @@ TaTeTi::TaTeTi(){
     this->estado = JUGANDO;
 };
 
-TipoCarta generarCartaAleatoria(){
-
-    TipoCarta resultado;
-    srand(time(NULL));
-
-    int numeroAleatorio = rand()%6;
-
-    if (numeroAleatorio == 0){
-        resultado = perderTurno;
-    }
-    else if(numeroAleatorio == 1){
-        resultado = volverAtras;
-    }
-    else if(numeroAleatorio == 2){
-        resultado = bloquearCasillero;
-    }
-    else if(numeroAleatorio == 3){
-        resultado = anularCasillero;
-    }
-    else if(numeroAleatorio == 4){
-        resultado = intercambiarFicha;
-    }
-    else if(numeroAleatorio == 5){
-        resultado = repetirTurno;
-    }
-
-    return resultado;
-
-}
-
 void TaTeTi::repartirCartas(){
 
     for(int i = 0; i < (this->jugadores->contarElementos() ); i++){
 
-        Carta * cartaAleatoria = new Carta( generarCartaAleatoria() );
-
-        
-        this->jugadores->obtenerCursor()->agregarCartaABaraja( *cartaAleatoria );
+        this->jugadores->obtenerCursor()->tomarcartaDelMazo();
 
         this->jugadores->avanzarCursor();
     }
