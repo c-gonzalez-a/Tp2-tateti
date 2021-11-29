@@ -6,6 +6,14 @@
 
 const char SI = 'S';
 
+#define PERDER_TURNO "perderTurno"
+#define VOLVER_ATRAS "volverAtras"
+#define BLOQUEAR_CASILLERO "bloquearCasillero"
+#define ANULAR_CASILLERO "anularCasillero"
+#define INTERCAMBIAR_FICHA "intercambiarFicha"
+#define REPETIR_TURNO "repetirTurno"
+
+
 void darBienvenida(){
 
     std::cout << " \
@@ -84,7 +92,7 @@ TaTeTi::TaTeTi(){
     }
     
     jugadores->iniciarCursor();
-    this->turnoActual = turnos->obtenerCursor();
+    this->turnoActual = jugadores->obtenerCursor();
 
     this->estado = JUGANDO;
 };
@@ -94,7 +102,7 @@ TipoCarta generarCartaAleatoria(){
     TipoCarta resultado;
     srand(time(NULL));
 
-    int numeroAleatorio = ran()%6;
+    int numeroAleatorio = rand()%6;
 
     if (numeroAleatorio == 0){
         resultado = perderTurno;
@@ -121,11 +129,12 @@ TipoCarta generarCartaAleatoria(){
 
 void TaTeTi::repartirCartas(){
 
-    for(int i = 0; i < (this->jugadores->contarElementos); i++){
+    for(int i = 0; i < (this->jugadores->contarElementos() ); i++){
 
         Carta * cartaAleatoria = new Carta( generarCartaAleatoria() );
 
-        this->jugadores->obtenerCursor()->agregarCartaABaraja(cartaAleatoria);
+        
+        this->jugadores->obtenerCursor()->agregarCartaABaraja( *cartaAleatoria );
 
         this->jugadores->avanzarCursor();
     }
@@ -140,25 +149,52 @@ bool deseaJugarCarta(){
     std::cout << "Desea jugar alguna carta? (S para si, cualquier letra para no" << std::endl;
     std::cin >> respuestaJugador;
 
-    if ( respuesta != SI ){
+    if ( respuestaJugador != SI ){
         deseaJugar = false;
     }
 
     return deseaJugar;
 }
 
-int pedirCarta(){
+TipoCarta pedirCarta(){
 
-    int respuesta;
+    TipoCarta cartaElegida;
+    std::string respuesta;
+    
+    bool respuestaValida = true;
 
-    std::cout << "Ingrese el numero de la carta que desea jugar" << std::endl;
-    std::cin >> respuesta;
+    do {
+        std::cout << "Ingrese el nombre de la carta que desea jugar" << std::endl;
+        std::cin >> respuesta;
 
-    return respuesta;
+        if ( respuesta == PERDER_TURNO ){
+            cartaElegida = perderTurno;
+        }
+        else if ( respuesta == VOLVER_ATRAS){
+            cartaElegida = volverAtras;
+        }
+        else if ( respuesta == BLOQUEAR_CASILLERO){
+            cartaElegida = bloquearCasillero;
+        }
+        else if ( respuesta == ANULAR_CASILLERO){
+            cartaElegida = anularCasillero;
+        }
+        else if ( respuesta == INTERCAMBIAR_FICHA){
+            cartaElegida = intercambiarFicha;
+        }
+        else if ( respuesta == REPETIR_TURNO){
+            cartaElegida = repetirTurno;
+        }
+        else {
+            respuestaValida = false;
+        }
 
+    } while (!respuestaValida);
+
+    return cartaElegida;
 }
 
-Coordenada pedirPosicionFicha(){
+Coordenada& pedirPosicionFicha(){
 
     int piso, fil, col;
 
@@ -175,19 +211,19 @@ Coordenada pedirPosicionFicha(){
 
     Coordenada * posicion = new Coordenada(col, fil, piso);
 
-    return posicion;
+    return *posicion;
 }
 
 void TaTeTi::posicionarFicha(){
     
-    Coordenada posicion;
+    Coordenada * posicion;
     bool posicionValida = false;
 
     while (!posicionValida){
     
-        posicion = pedirPosicionFicha();
+        *posicion = pedirPosicionFicha();
 
-        if ( tablero->agregarFicha() ){
+        if ( tablero->agregarFicha(*posicion) ){
             posicionValida = true;
         }
     }
@@ -199,12 +235,12 @@ void TaTeTi::moverFicha(){
     bool cambioValido = false;
     while(!cambioValido){
         
-        Coordenada posicionActual;
-        posicionActual = pedirPosicionFicha();
-        Coordenada posicionNueva;
-        posicionNueva = pedirPosicionFicha();
+        Coordenada * posicionActual;
+        *posicionActual = pedirPosicionFicha();
+        Coordenada * posicionNueva;
+        *posicionNueva = pedirPosicionFicha();
 
-        if (this->tablero->moverFicha(posicionActual, posicionNueva, this->turnoActual)){
+        if ( this->tablero->moverFicha(posicionActual, posicionNueva, this->turnoActual) ){
             cambioValido = true;
         }
     }
@@ -212,16 +248,19 @@ void TaTeTi::moverFicha(){
 
 void TaTeTi::jugarTurno(Jugador * jugador){
 
+    bool respuesta = false;
+    TipoCarta cartaAJugar;
+
     do {
         
         jugador->listarCartas();
-        bool respuesta = deseaJugarCarta();
+        respuesta = deseaJugarCarta();
             
             if ( respuesta ){
-                int posicionCartaAJugar = pedirCarta();
-             }
+                cartaAJugar = pedirCarta();
+            }
 
-    } while ( !(jugador->jugarCarta(posicionCartaAJugar)) && (respuesta) );
+    } while ( !(jugador->jugarCarta(cartaAJugar)) && (respuesta) );
 
     if ( jugador->obtenerEstado() == POSICIONANDO){
         this->posicionarFicha();
@@ -236,6 +275,7 @@ void TaTeTi::actualizarEstadoDelJuego(){
 
 }
 
+
 void TaTeTi::jugar(){
 
     while (this->estado == JUGANDO){
@@ -244,7 +284,7 @@ void TaTeTi::jugar(){
 
         repartirCartas();
         
-        jugarTurno(this->turno);
+        jugarTurno(this->turnoActual);
         
         actualizarEstadoDelJuego();
 
@@ -255,6 +295,3 @@ TaTeTi::~TaTeTi(){
     tablero->~Tablero();
     mazo->~Mazo();
 }
-
-
-#endif //string

@@ -8,7 +8,7 @@
 enum EstadoJuego {
     JUGANDO,
     FINALIZADO,
-}
+};
 
 class TaTeTi {
 
