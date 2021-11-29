@@ -158,14 +158,42 @@ int pedirCarta(){
 
 }
 
-void posicionarFicha(){
+Coordenada pedirPosicionFicha(){
+
+    int piso, fil, col;
+
+    std::cout << "Ingrese el piso: " << std::endl;
+    std::cin >> piso;
+    std::cout << "Ingrese la fila: " << std::endl;
+    std::cin >> fil;
+    std::cout << "Ingrese la columna: " << std::endl;
+    std::cin >> col;
+
+    col--;
+    fil--;
+    piso--;
+
+    Coordenada * posicion = new Coordenada(col, fil, piso);
+
+    return posicion;
+}
+
+void TaTeTi::posicionarFicha(){
+    
+    Coordenada posicion;
+    bool posicionValida = false;
+
+    while (!posicionValida){
+    
+        posicion = pedirPosicionFicha();
+
+        if ( tablero->agregarFicha() ){
+            posicionValida = true;
+        }
+    }
 
 }
 
-<<<<<<< Updated upstream
-void moverFicha(){
-
-=======
 void TaTeTi::moverFicha(){
 
     bool cambioValido = false;
@@ -180,7 +208,6 @@ void TaTeTi::moverFicha(){
             cambioValido = true;
         }
     }
->>>>>>> Stashed changes
 }
 
 void TaTeTi::jugarTurno(Jugador * jugador){
@@ -212,6 +239,8 @@ void TaTeTi::actualizarEstadoDelJuego(){
 void TaTeTi::jugar(){
 
     while (this->estado == JUGANDO){
+        
+        this->tablero->imprimirTablero();
 
         repartirCartas();
         
