@@ -9,7 +9,6 @@
 class Mazo {
 
 private:
-    //Carta * cartas; //cola
     Pila<Carta *> * mazo;
 
 public:
