@@ -1,14 +1,13 @@
-#include "carta.h"
 #include <iostream>
 
-Carta::Carta(TipoCarta tipo){
-    this->nombre = tipo;
+Carta::Carta(){
+    this->nombre = CARTAS[rand() % 6];
 }
 
 void Carta::imprimirCarta() {
-    std::cout << this->getNombre();
+    std::cout << this->nombre;
 }
 
-TipoCarta Carta::getNombre(){
+std::string Carta::getNombreCarta(){
     return this->nombre;
 }

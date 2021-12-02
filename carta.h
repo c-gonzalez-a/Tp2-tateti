@@ -1,36 +1,46 @@
-#ifndef CARTA_H_
-#define CARTA_H_
+#ifndef _CARTA_H
+#define _CARTA_H
 
-enum TipoCarta {
-    perderTurno,
-    volverAtras,
-    bloquearCasillero,
-    anularCasillero,
-    intercambiarFicha,
-    repetirTurno,
+#include <cstdlib>
+#include <ctime>
+#include <string>
+
+
+const char * CARTAS[] = {
+        "perderTurno",
+        "volverAtras",
+        "bloquearCasillero",
+        "anularCasillero",
+        "intercambiarFicha",
+        "repetirTurno",
 };
+
 
 class Carta {
 
-    private: 
-        TipoCarta nombre;
+private:
+    std::string nombre;
 
-    public:
+public:
 
-        /**
-         * Post: Construye una carta del tipo indicado
-         */
-        Carta(TipoCarta tipo);
+    /**
+     * Pre: -
+     * Post: Construye una carta
+     */
+    Carta();
 
-        /**
-         * Post: Imprime la carta en pantalla
-         */
-        void imprimirCarta();
+    /**
+     * Pre: -
+     * Post: Imprime la carta en pantalla
+     */
+    void imprimirCarta();
 
-        /*
-         * Post: Devuelve el tipo
-         */
-        TipoCarta getNombre();
+    /*
+     * Pre: -
+     * Post: Retorna el nombre de la carta
+     */
+    std::string getNombreCarta();
 };
 
-#endif //CARTA_H_
+
+#endif //PRUEBAMAZO_CARTA_H
