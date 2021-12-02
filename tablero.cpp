@@ -1,4 +1,5 @@
 #include "tablero.h"
+#include "casillero.h"
 #include "lista.h"
 
 Tablero::Tablero(int dim1, int dim2, int dim3){
@@ -35,16 +36,119 @@ Tablero::~Tablero()
     //std::cout << "DESTRUCTED [" << this << "]\n";
 }
 
+casillero & Tablero::obtenerCasillero(int x, int y, int y, Lista<Lista<Lista<Casillero*>*>*> & tablero){
+
+    (tablero)->iniciarCursor();
+    for(i=1;i<x;i++){
+        (tablero)->avanzarCursor();
+    }
+
+    ((tablero)->obtenerCursor())->iniciarCursor();
+    for(i=1;i<y;i++){
+        ((tablero)->obtenerCursor())->avanzarCursor();
+    }
+
+    (((tablero)->obtenerCursor())->obtenerCursor())->iniciarCursor();
+    for(i=1;i<z;i++){
+        (((tablero)->obtenerCursor())->obtenerCursor())->avanzarCursor();
+    }
+
+    return (((tablero)->obtenerCursor())->obtenerCursor())->obtenerCursor();
+
+}
+
 
 // addChecker() agrega una ficha en un lugar determinado del tablero
-void Tablero::addChecker(int row, int column,int player){
-    char mark;
-    if(player==1)
-        mark = 'X';
-    if(player==2)
-        mark = 'O';
-    this->board[row][column] = mark;
+void Tablero::agregarFicha(coordenada &coord,jugador &jugad){
+
+    int pos_x = coord.getX();
+    int pos_y = coord.getY();
+    int pos_z = coord.getZ();
+
+    char ficha = jugad.obtenerFicha();
+
+    (this->tablero)->iniciarCursor();
+    for(i=1;i<pos_x;i++){
+        (this->tablero)->avanzarCursor();
+    }
+
+    ((this->tablero)->obtenerCursor())->iniciarCursor();
+    for(i=1;i<pos_y;i++){
+        ((this->tablero)->obtenerCursor())->avanzarCursor();
+    }
+
+    (((this->tablero)->obtenerCursor())->obtenerCursor())->iniciarCursor();
+    for(i=1;i<pos_z;i++){
+        (((this->tablero)->obtenerCursor())->obtenerCursor())->avanzarCursor();
+    }
+
+    ((((this->tablero)->obtenerCursor())->obtenerCursor())->obtenerCursor()->ocuparCasillero(ficha);
+
 }
+
+// moveChecker() mueve una pieza de una posicion de origen hacia una de destino
+void Tablero::moverFicha(coordenada &origen, coordenada &destino){
+
+    espacio = ' ';
+    de_x = origen.getX();
+    de_y = origen.getY();
+    de_z = origen.getZ();
+
+    a_x = destino.getX();
+    a_y = destino.getY();
+    a_z = destino.getZ();
+
+    casillero * origen = obtenerCasillero(de_x,de_y,de_z, this->tablero);
+    casillero * destino = obtenerCasillero(a_x,a_y,a_z, this->tablero);
+
+    char ficha = (*origen).getFicha();
+    (*origen).ocuparCasillero(espacio);
+    (*origen).liberarCasillero();
+
+    (*destino).ocuparCasillero(ficha);
+}
+
+void Tablero::intercambiarFicha(coordenada &origen, coordenada &destino){
+
+    espacio = ' ';
+    de_x = origen.getX();
+    de_y = origen.getY();
+    de_z = origen.getZ();
+
+    a_x = destino.getX();
+    a_y = destino.getY();
+    a_z = destino.getZ();
+
+    casillero * origen = obtenerCasillero(de_x,de_y,de_z, this->tablero);
+    casillero * destino = obtenerCasillero(a_x,a_y,a_z, this->tablero);
+
+    char fichaOrigen = (*origen).getFicha();
+    char fichaDestino = (*destino).getFicha();
+    (*origen).ocuparCasillero(fichaDestino);
+    (*destino).ocuparCasillero(fichaOrigen);
+}
+
+void Tablero::quitarFicha(coordenada &_coordenada){
+
+    espacio = ' ';
+    de_x = _coordenada.getX();
+    de_y = _coordenada.getY();
+    de_z = _coordenada.getZ();
+
+    casillero * _casillero = obtenerCasillero(de_x,de_y,de_z, this->tablero);
+
+    (*_casillero).ocuparCasillero(espacio);
+    (*_casillero).liberarCasillero();
+}
+
+
+void Tablero::imprimirTablero(){
+
+
+
+
+}
+
 
 // printState() imprime el estado actual del tablero
 void Tablero::printState(){
@@ -79,11 +183,8 @@ bool Tablero::validateMove(int row_act, int col_act, int row_to,int col_to){
 }
 
 
-// moveChecker() mueve una pieza de una posicion de origen hacia una de destino
-void Tablero::moveChecker(int row_act, int col_act, int row_to,int col_to){
-    this->board[row_to][col_to] = this->board[row_act][col_act];
-    this->board[row_act][col_act] = ' ';
-}
+
+
 
 
 // validateOwnership() valida si un jugador es duenio de la ficha que esta intentando mover

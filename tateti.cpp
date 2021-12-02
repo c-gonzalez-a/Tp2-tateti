@@ -97,7 +97,7 @@ TaTeTi::TaTeTi(){
     this->estado = JUGANDO;
 };
 
-void TaTeTi::repartirCartas(){
+void TaTeTi::tomarCartas(){
 
     for(int i = 0; i < (this->jugadores->contarElementos() ); i++){
 

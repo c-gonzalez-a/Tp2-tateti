@@ -43,9 +43,9 @@ class TaTeTi {
 
         /**
          * Pre: El juego debe estar correctamente inicializado
-         * Post: Reparte una carta a cada jugador de forma aleatoria del mazo
+         * Post: Cada jugador tomara una carta del mazo
          */
-        void repartirCartas();
+        void tomarCartas();
 
         /**
          * Pre: El juego tateti debe estar creado correctamente
@@ -56,7 +56,6 @@ class TaTeTi {
         /**
          * Pre: -
          * Post: Si hay algun ganador se cambia el estado del juego, sino se pasa al siguiente turno
-         * 
          */
         void actualizarEstadoDelJuego();
 
