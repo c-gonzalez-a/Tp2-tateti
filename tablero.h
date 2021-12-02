@@ -4,6 +4,7 @@
 #include "coordenada.h"
 #include "casillero.h"
 #include "lista.h"
+#include "jugador.h"
 
 class Tablero {
 
@@ -30,17 +31,17 @@ class Tablero {
          * Pre: Recibe una posicion en la que se desea ubicar una ficha y el jugador que la colacaria
          * Post: Si la posicion es valida para las dimensiones del tablero y el casillero esta vacio la ubica y devuelve true
          */
-        void agregarFicha(Coordenada  &_coordenada, jugador &_jugador);
+        void agregarFicha(Coordenada  &_coordenada, Jugador &_jugador);
 
         /**
          * Pre: Recibe la posicion de la ficha que desea mover, luego a donde desea moverla, y el jugador que lo pide
          * Post: Si todo es valido realiza el cambio y devuelve true
          */
-        void moverFicha(coordenada &origen, coordenada &destino);
+        void moverFicha(Coordenada &origen, Coordenada &destino);
 
-        void intercambiarFicha(coordenada &origen, coordenada &destino);
+        void intercambiarFicha(Coordenada &origen, Coordenada &destino);
 
-        void quitarFicha(coordenada &_coordenada)
+        void quitarFicha(Coordenada &_coordenada);
 
 
         /**
@@ -51,7 +52,7 @@ class Tablero {
 
 
 
-        casillero & obtenerCasillero(int x, int y, int y, Lista<Lista<Lista<Casillero*>*>*> & tablero)
+        Casillero * obtenerCasillero(int x, int y, int z, Lista<Lista<Lista<Casillero*>*>*>  tablero);
 
         // void initBoard(int, int);               // inicia la variable board con un tablero con dimensiones igual a los dos argumentos
         // void addChecker(int, int, int);         // agrega ficha en casillero con coordenadas (x,y) = a los argumentos
